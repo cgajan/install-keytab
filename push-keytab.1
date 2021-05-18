@@ -1,0 +1,73 @@
+.TH PUSH-KEYTAB 1 "April 2021" "version 1.0.4" "User Commands"
+.SH NAME
+push-keytab \- push an user's 
+.I keytab 
+to a secure keytab folder of a remote server
+.SH SYNOPSIS
+.B push-keytab
+\-k <file> \-h <host> [\-p <port>]
+.SH DESCRIPTION
+Push the user's 
+.I keytab 
+file 
+.B <file>  
+to a keytab folder of the remote server 
+.B <host> 
+without compromise the keytab security. 
+The exact destination location of the pushed keytab on the remote server depend on the configuration of the
+.B install-keytab
+utility installed on the remote server. See  
+.B install-keytab(1) 
+and 
+.B install-keytab.conf(5)
+.SH OPTIONS
+.TP
+.B \-k <file>
+Specify the
+.I keytab 
+file to be copied to the keytab folder on the remote server. 
+.TP
+.B \-h <host>
+Specify the remote
+.B host 
+on which the keytab must be deployed.
+The host must have the 
+.BR install-keytab(1)
+utility installed as 
+.B /usr/bin/install-keytab
+.TP
+.B \-p <port>
+The TCP
+.B port 
+number of the remote SSH service.
+.TP
+.PD
+.SH NOTES
+This program use the 
+.B SSH 
+service of the remote host to remotely launch the 
+.B install-keytab
+utility which must be available on the remote server.
+.SH DEPENDENCIES
+.IP \(bu 
+This executable need 
+.I libssh 
+dynamic library.
+.IP \(bu 
+On the remote server the 
+.B install-keytab 
+utility must be available as 
+.B /usr/bin/install-keytab
+.SH EXAMPLES
+.TP
+.B % push-keytab \-k my.keytab -h theserver
+.P
+Install the my.keytab file to the keytab folder on the remote server theserver.
+.SH "SEE ALSO"
+.BR install-keytab(1)
+, 
+.BR install-keytab.conf(5)
+.SH LICENSE
+GNU General Public License version 3
+.SH AUTHOR
+Christian Gajan

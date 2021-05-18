@@ -1,0 +1,210 @@
+.TH INSTALL-KEYTAB.CONF 5 "April 2021" "version 1.0.4" "User Commands"
+.SH NAME
+install-keytab.conf \- Configuration file of the 
+.B install-keytab(1) 
+utility 
+.SH DESCRIPTION
+.B install-keytab(1) 
+obtains configuration from the 
+.B /etc/install-keytab.conf 
+file. The file contains keyword-value pairs, one per line. A keyword and its value are separed by one '=' character (e.g. etype_filter=all).  Lines starting with ‘#’ and empty lines are interpreted as comments.
+.P
+The possible keywords and their meanings are as follows (note that keywords and value are case-sensitive):
+.TP
+.B etype_filter
+control encryption types accepted from keytab
+.RS 
+.IP \(bu 4
+.B all
+: means all encryption types are accepted
+.IP \(bu 4
+.B a commas separed list 
+of encryption type (e.g. aes256-cts-hmac-sha1-96,aes128-cts-hmac-sha1-96). 
+.IP \(bu 4
+default value is 
+.B aes256-cts-hmac-sha1-96.
+.RE
+.TP
+.BR etype_action 
+control the behavor relative to encryption type 
+.RS 
+.IP \(bu 4
+.B allow
+: all encryption types are accepted
+.IP \(bu 4
+.B warning
+: get a warning if no keytab entries with specified encryption type is found
+.IP \(bu 4
+.B deny
+: reject keytab if no keytab entries with specified encryption type is found  
+.IP \(bu 4
+default is 
+.B deny
+.RE
+.TP
+.B principal_filter
+control how principal names are accepted from keytab
+.RS 
+.IP \(bu 4
+.B all
+: means all principal names are accepted
+.IP \(bu 4
+.B user 
+: means only principal equals to username 
+.IP \(bu 4
+default value is 
+.B user
+.RE
+.TP
+.B principal_action
+control the behavor relative to principal name 
+.RS 
+.IP \(bu 4
+.B allow
+: all principal names are accepted
+.IP \(bu 4
+.B warning
+: get a warning if no keytab entries with specified principal name is found
+.IP \(bu 4
+.B deny
+: reject keytab if no keytab entries with specified principal name is found  
+.IP \(bu 4
+default is 
+.B deny
+.RE
+.TP
+.B principal_case_filter
+control how character cases of principal names are accepted from keytab
+.RS 
+.IP \(bu 4
+.B all
+: means all character cases are accepted
+.IP \(bu 4
+.B upper 
+: means only upper case
+.IP \(bu 4
+.B lower 
+: means only lower case
+.IP \(bu 4
+default value is 
+.B all
+.RE
+.TP
+.B principal_case_action
+control the behavor relative to character case of principal name 
+.RS 
+.IP \(bu 4
+.B allow
+: all character cases are accepted
+.IP \(bu 4
+.B warning
+: get a warning if no keytab entries with specified character case is found
+.IP \(bu 4
+.B deny
+: reject keytab if no keytab entries with specified character case is found  
+.IP \(bu 4
+default is 
+.B allow
+.RE
+.TP
+.B principal_domain_filter
+control how principal's domains are accepted from keytab
+.RS 
+.IP \(bu 4
+.B all
+: means all domains are accepted
+.IP \(bu 4
+.B a commas separed list 
+of domains (example: FR.COMPANY.COM,ES.COMPANY.COM). 
+.IP \(bu 4
+default value is 
+.B all
+.RE
+.TP
+.B principal_domain_action
+control the behavor relative to domain of principal
+.RS 
+.IP \(bu 4
+.B allow
+: all domains are accepted
+.IP \(bu 4
+.B warning
+: get a warning if no keytab entries with specified domains is found
+.IP \(bu 4
+.B deny
+: reject keytab if no keytab entries with specified domains is found  
+.IP \(bu 4
+default is 
+.B allow
+.RE
+.TP
+.B destination_keytab
+define the full path of the destination keytab. 
+This full path string may contain substitution patterns. 
+The supported patterns are:
+.RS
+.IP \(bu 4
+.B %U
+substitutes to the user's numeric uid (e.g. 123)
+.IP \(bu 4
+.B %u
+substitutes to the user's username (e.g. john).
+.IP \(bu 4
+default value is
+.B /var/lib/gssproxy/users/%U.keytab
+.RE
+.TP
+.B size_filter
+control how keytab sizes are accepted
+.RS 
+.IP \(bu 4
+.B all
+: any keytab size is accepted
+.IP \(bu 4
+.B <number> 
+: size in byte
+.IP \(bu 4
+default value is 
+.B 4096
+.RE
+.TP
+.B size_action
+control the behavor relative to the size of the keytab
+.RS 
+.IP \(bu 4
+.B allow
+: all sizes are accepted
+.IP \(bu 4
+.B warning
+: get a warning if keytab size if bigger than the specified size
+.IP \(bu 4
+.B deny
+: reject keytab if keytab size if bigger than the specified size
+.IP \(bu 4
+default is 
+.B deny
+.RE
+.TP
+.B source_keytab_protection
+control how given source keytab file is protected
+.RS 
+.IP \(bu 4
+.B none
+: the source keytab remains unchanged
+.IP \(bu 4
+.B permissions
+: the source keytab permissions is forced to only read-write for owner
+.IP \(bu 4
+.B remove
+: the source keytab is deleted after been copied in the destination folder
+.IP \(bu 4
+default value is 
+.B permissions
+.RE
+.PD
+.SH "SEE ALSO"
+.BR install-keytab(1)
+.SH LICENSE
+GNU General Public License version 3
+.SH AUTHOR
+Christian Gajan

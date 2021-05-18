@@ -1,0 +1,81 @@
+.TH INSTALL-KEYTAB 1 "April 2021" "version 1.0.4" "User Commands"
+.SH NAME
+install-keytab \- Allow a non-root user to copy its 
+.I keytab 
+in a protected 
+keytab folder only accessible by root (such as the 
+.I gssproxy 
+client keytab folder).
+.SH SYNOPSIS
+.B install-keytab
+\-e | \-k <file>
+.SH DESCRIPTION
+Copy an given 
+.I keytab 
+file in a protected keytab folder 
+.P
+The behavior of 
+.B install-keytab 
+can be defined through the 
+.B install-keytab.conf(5) 
+configuration file.
+.P
+The destination keytab folder and destination keytab file are defined by the 
+.I destination_keytab 
+configuration parameter (default is 
+.B /var/lib/gssproxy/clients/%U.keytab
+). This default value corresponds to the default 
+.I client_keytab 
+parameter of the 
+.I gssproxy 
+(
+.B cred_store=client_keytab:/var/lib/gssproxy/clients/%U.keytab
+).
+.P
+Depending of the 
+.I source_keytab_protection
+configuration parameter, the given keytab file is impacted
+.TP 
+.IP \[bu] 4
+its permissions can be forced to read-write only for the owner  
+.IP \[bu] 4
+it can be deleted after its installation in the destination folder.
+.SH OPTIONS
+.TP
+.B \-k <file>
+Specify the
+.I keytab 
+file to be copied in the destination keytab folder.
+.TP
+.BR \-e 
+The 
+.I keytab 
+is provided through an environment variable. This could be useful for integration with other tool such as 
+.BR push-keytab(1)
+utility
+.SH DEPENDENCIES
+.IP \(bu
+This executable must be 
+.I owned by root 
+and must have the 
+.I setuid 
+bit enabled.
+.IP \(bu
+This executable need 
+.I libkrb5 
+and 
+.I libk5crypto 
+dynamic libraries.
+.SH EXAMPLES
+.TP
+.B % install-keytab \-k my.keytab
+.TP
+Install the my.keytab file to the right protected destination folder.
+.SH "SEE ALSO"
+.BR install-keytab.conf(5)
+,
+.BR push-keytab(1)
+.SH LICENSE
+GNU General Public License version 3
+.SH AUTHOR
+Christian Gajan
