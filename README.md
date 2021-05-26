@@ -283,5 +283,5 @@ Christian Gajan
 Release Information
 ===================
 
-**push-keytab(1)** use **libssh** release 0.9.4 and above. For RedHat/Centos this library is available starting version 8. So **push-keytab** can be build easily starting RHEL/CentOS 8.
-The RPM provided in the releases section is for RHEL/CentOS 7. It include the **libssh** version **0.9.5** (libssh.so.4.8.6) which will be used by **push-keytab** instead of the **libssh** version **0.7.1** (libssh.so.4.4.0) bundle with RHEL/CentOS 7.
+**push-keytab** depends on **libssh** release _0.9.4_ and above. For RedHat/Centos this library is available starting version 8. So **push-keytab** can be built easily starting RHEL/CentOS 8.
+The RPM provided in the releases section is for RHEL/CentOS 7. It include the **libssh** version **0.9.5** (_libssh.so.4.8.6_) which will be used by **push-keytab** instead of the **libssh** version **0.7.1** (_libssh.so.4.4.0_) bundle with RHEL/CentOS 7.
